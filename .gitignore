@@ -1,0 +1,30 @@
+# Ignore vendor directory (Composer dependencies)
+vendor/
+
+# Ignore environment files
+.env
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and cache
+logs/
+cache/
+
+# Ignore composer lock file if not needed
+composer.lock
+
+# Ignore DDEV-specific files
+.ddev/.dbimage
+.ddev/.ddev-docker-compose-base.yaml
+.ddev/.ddev-docker-compose-full.yaml
+.ddev/docker-compose.*.yaml
+.ddev/import-db
+.ddev/homeadditions
+.ddev/ssh-agent
+.ddev/.global_commands
