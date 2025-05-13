@@ -4,6 +4,9 @@ vendor/
 # Ignore environment files
 .env
 
+# Ignore configuration files with real credentials
+config.php
+
 # Ignore IDE-specific files
 .vscode/
 .idea/

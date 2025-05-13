@@ -1,6 +1,35 @@
 <?php
 header('Content-Type: application/json');
 
+// Load configuration (with fallback to example config if needed)
+$configPath = __DIR__ . '/../config.php';
+$exampleConfigPath = __DIR__ . '/../config.php.example';
+
+// First try to load the real config, fall back to example if needed
+if (file_exists($configPath)) {
+    $config = include $configPath;
+} elseif (file_exists($exampleConfigPath)) {
+    $config = include $exampleConfigPath;
+} else {
+    http_response_code(500);
+    echo json_encode(['error' => 'Configuration file missing']);
+    exit;
+}
+
+$validApiKey = $config['api_key'];
+
+// Check API key
+$apiKey = isset($_GET['key']) ? $_GET['key'] : null;
+
+if (!$apiKey || $apiKey !== $validApiKey) {
+    http_response_code(401);
+    echo json_encode([
+        'error' => 'Invalid or missing API key',
+        'example' => '/airports.php?icao=OOAL&key=your_api_key'
+    ]);
+    exit;
+}
+
 // Get airport ICAO code from query string
 $icao = isset($_GET['icao']) ? $_GET['icao'] : null;
 
@@ -8,7 +37,7 @@ if (!$icao) {
     http_response_code(400);
     echo json_encode([
         'error' => 'Missing required parameter: icao',
-        'example' => '/airports.php?icao=OOAL'
+        'example' => '/airports.php?icao=OOAL&key=your_api_key'
     ]);
     exit;
 }

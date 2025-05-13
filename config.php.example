@@ -1,0 +1,5 @@
+<?php
+// API configuration 
+return [
+    'api_key' => 'your_secret_api_key_here'  // Change this value whenever you need
+];
