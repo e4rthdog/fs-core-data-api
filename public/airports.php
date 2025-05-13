@@ -1,21 +1,18 @@
 <?php
 header('Content-Type: application/json');
 
-// Load configuration (with fallback to example config if needed)
+// Load configuration
 $configPath = __DIR__ . '/../config.php';
-$exampleConfigPath = __DIR__ . '/../config.php.example';
 
-// First try to load the real config, fall back to example if needed
-if (file_exists($configPath)) {
-    $config = include $configPath;
-} elseif (file_exists($exampleConfigPath)) {
-    $config = include $exampleConfigPath;
-} else {
+// Check if config file exists
+if (!file_exists($configPath)) {
     http_response_code(500);
     echo json_encode(['error' => 'Configuration file missing']);
     exit;
 }
 
+// Load config
+$config = include $configPath;
 $validApiKey = $config['api_key'];
 
 // Check API key
