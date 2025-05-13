@@ -1,0 +1,19 @@
+# Enable URL rewriting
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /api/fs-core-data-api/
+    
+    # If the request is for an actual file or directory, serve it directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    
+    # Forward any requests for airports to airports.php
+    RewriteRule ^airports$ airports.php [L]
+</IfModule>
+
+# Set default character encoding
+AddDefaultCharset UTF-8
+
+# Disable directory browsing
+Options -Indexes

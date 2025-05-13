@@ -22,7 +22,12 @@ This API provides access to airport runway data, including runway identifiers an
 ### Get Airport Runway Data
 
 ```
-GET /airports.php?icao=XXXX&key=your_api_key
+GET /airports?icao=XXXX&key=your_api_key
+```
+
+Or with the full path on shared hosting:
+```
+GET /api/fs-core-data-api/airports?icao=XXXX&key=your_api_key
 ```
 
 #### Parameters:
