@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 // Load configuration
 $configPath = __DIR__ . '/../config.php';
