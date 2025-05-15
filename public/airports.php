@@ -2,9 +2,9 @@
 header('Content-Type: application/json');
 if (
     isset($_SERVER['HTTP_ORIGIN']) &&
-    $_SERVER['HTTP_ORIGIN'] === 'http://localhost:7777/fs-awos/'
+    $_SERVER['HTTP_ORIGIN'] === 'http://localhost:7777'
 ) {
-    header('Access-Control-Allow-Origin: http://localhost:7777/fs-awos/');
+    header('Access-Control-Allow-Origin: http://localhost:7777');
 }
 
 // Load configuration
