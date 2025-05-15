@@ -19,19 +19,6 @@ if (!file_exists($configPath)) {
 
 // Load config
 $config = include $configPath;
-$validApiKey = $config['api_key'];
-
-// Check API key
-$apiKey = isset($_GET['key']) ? $_GET['key'] : null;
-
-if (!$apiKey || $apiKey !== $validApiKey) {
-    http_response_code(401);
-    echo json_encode([
-        'error' => 'Invalid or missing API key',
-        'example' => '/airports.php?icao=OOAL&key=your_api_key'
-    ]);
-    exit;
-}
 
 // Get airport ICAO code from query string
 $icao = isset($_GET['icao']) ? $_GET['icao'] : null;
@@ -40,7 +27,7 @@ if (!$icao) {
     http_response_code(400);
     echo json_encode([
         'error' => 'Missing required parameter: icao',
-        'example' => '/airports.php?icao=OOAL&key=your_api_key'
+        'example' => '/airports.php?icao=OOAL'
     ]);
     exit;
 }
