@@ -1,6 +1,11 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+if (
+    isset($_SERVER['HTTP_ORIGIN']) &&
+    $_SERVER['HTTP_ORIGIN'] === 'http://localhost:7777'
+) {
+    header('Access-Control-Allow-Origin: http://localhost:7777');
+}
 
 // Load configuration
 $configPath = __DIR__ . '/../config.php';
