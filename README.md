@@ -4,7 +4,7 @@ A simple API for retrieving airport runway data from a SQLite database.
 
 ## Overview
 
-This API provides access to airport runway data, including runway identifiers and headings. It requires an API key for authentication and returns data in JSON format.
+This API provides access to airport runway data, including runway identifiers and headings. It returns data in JSON format.
 
 ## Setup Instructions
 
@@ -13,7 +13,7 @@ This API provides access to airport runway data, including runway identifiers an
    ```
    cp config.php.example config.php
    ```
-3. Edit `config.php` and set a secure API key
+3. Edit `config.php` if needed
 4. Ensure the web server points to the `public` directory as the document root
 5. Make sure PHP has write permissions to the `data` directory
 
@@ -22,18 +22,17 @@ This API provides access to airport runway data, including runway identifiers an
 ### Get Airport Runway Data
 
 ```
-GET /airports?icao=XXXX&key=your_api_key
+GET /airports?icao=XXXX
 ```
 
 Or with the full path on shared hosting:
 ```
-GET /api/fs-core-data-api/airports?icao=XXXX&key=your_api_key
+GET /api/fs-core-data-api/airports?icao=XXXX
 ```
 
 #### Parameters:
 
 - `icao` (required): The ICAO code of the airport (e.g., OOAL)
-- `key` (required): Your API key for authentication
 
 #### Response Format:
 
@@ -57,7 +56,6 @@ GET /api/fs-core-data-api/airports?icao=XXXX&key=your_api_key
 #### Error Responses:
 
 - 400: Missing required parameter
-- 401: Invalid or missing API key
 - 404: No data found for the specified ICAO code
 - 500: Server error
 
@@ -67,7 +65,6 @@ For production deployment:
 
 1. Only expose the `public` directory to the web server
 2. Keep the configuration file and database outside the web root
-3. Use a secure, randomly generated API key
 
 ### Apache Configuration
 
@@ -104,7 +101,6 @@ server {
 
 ## Security Considerations
 
-- The API is protected with an API key
 - Configuration file (`config.php`) should be kept outside the web root
 - SQLite database (`data/airports.db`) should not be directly accessible via web
 - Only the `public` directory should be exposed to the web server
