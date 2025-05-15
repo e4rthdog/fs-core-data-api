@@ -1,5 +1,6 @@
 <?php
 // API configuration 
 return [
+    'rate_limit_per_minute' => 60,
     'api_key' => 'your_secret_api_key_here'  // Change this value whenever you need
 ];

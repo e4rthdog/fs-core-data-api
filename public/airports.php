@@ -20,6 +20,24 @@ if (!file_exists($configPath)) {
 // Load config
 $config = include $configPath;
 
+// Rate limiting: configurable requests per minute per IP
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$rateFile = sys_get_temp_dir() . "/api_rate_" . md5($ip);
+$limit = $config['rate_limit_per_minute'] ?? 60;
+$now = time();
+$requests = [];
+if (file_exists($rateFile)) {
+    $requests = json_decode(file_get_contents($rateFile), true) ?: [];
+    $requests = array_filter($requests, fn($t) => $t > $now - 60);
+}
+$requests[] = $now;
+file_put_contents($rateFile, json_encode($requests));
+if (count($requests) > $limit) {
+    http_response_code(429);
+    echo json_encode(['error' => 'Too many requests']);
+    exit;
+}
+
 // Get airport ICAO code from query string
 $icao = isset($_GET['icao']) ? $_GET['icao'] : null;
 
