@@ -1,8 +1,18 @@
 # Ignore vendor directory (Composer dependencies)
 vendor/
+/public/vendor/
 
 # Ignore environment files
 .env
+
+# Ignore actual config file with secrets
+/public/config.php
+/config.php
+
+# Ignore SQLite database files
+data/*.db
+data/*.sqlite
+data/*.sqlite3
 
 # Ignore configuration files with real credentials
 config.php
@@ -10,17 +20,20 @@ config.php
 # Ignore IDE-specific files
 .vscode/
 .idea/
+*.sublime-*
 
 # Ignore system files
 .DS_Store
 Thumbs.db
 
 # Ignore logs and cache
+*.log
 logs/
 cache/
 
 # Ignore composer lock file if not needed
 composer.lock
+/public/composer.lock
 
 # Ignore DDEV-specific files
 .ddev/.dbimage
