@@ -1,4 +1,15 @@
 <?php
+// Handle CORS
+header('Access-Control-Allow-Origin: https://localhost:9000');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Credentials: true');
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 try {
     ob_start();
@@ -57,9 +68,7 @@ try {
         $response['data'] =  $data;
     }
 
-    header("Content-Type:application/json");
-    header('Access-Control-Allow-Origin: *');
-    header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    header("Content-Type: application/json");
     ob_end_clean();
     echo json_encode($response, JSON_PRETTY_PRINT);
 } catch (PDOException $e) {
