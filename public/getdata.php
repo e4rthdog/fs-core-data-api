@@ -32,7 +32,7 @@ if ($vatsim->loadData()) {
             break;
         case 'METAR':
             $metar = strtoupper($_GET['q']);
-            $result = $vatsim->getMetar($metar);
+            $result = ['metar' => $vatsim->getMetar($metar)];
             break;
     }
 
