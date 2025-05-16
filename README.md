@@ -6,6 +6,26 @@ A simple API for retrieving airport runway data from a SQLite database.
 
 This API provides access to airport runway data, including runway identifiers and headings. It returns data in JSON format.
 
+## Project Structure
+
+```
+config.php.example         # Sample configuration file
+README.md                 # Project documentation
+vatinfo-database.sql      # Example SQL for database
+/data/
+    airports.db           # SQLite database file
+/public/
+    airports.php          # Main API endpoint for airport runways
+    getdata.php           # Additional API/data endpoint
+    getevents.php         # Additional API/data endpoint
+    getmetar.php          # Additional API/data endpoint
+    config.php            # Actual configuration (not in version control)
+    composer.json         # Composer dependencies (if any)
+    composer.lock         # Composer lock file
+    vatinfo-panels.php    # Additional PHP panel endpoint
+    vatinfo-panels-config-example.php # Example config for panels
+```
+
 ## Setup Instructions
 
 1. Clone the repository
@@ -75,48 +95,10 @@ DocumentRoot /path/to/fs-core-data-api/public
     Require all granted
 </Directory>
 ```
-
-### Nginx Configuration
-
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-    root /path/to/fs-core-data-api/public;
-    
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-    
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php-fpm.sock;
-    }
-    
-    location ~ /\.ht {
-        deny all;
-    }
-}
-```
-
-## Security Considerations
-
-- Configuration file (`config.php`) should be kept outside the web root
-- SQLite database (`data/airports.db`) should not be directly accessible via web
-- Only the `public` directory should be exposed to the web server
-
 ## Development
 
 This project uses a simple PHP setup with a SQLite database. To add features or modify the API:
 
-1. Make changes to the `airports.php` file or add new endpoints
+1. Make changes to the `airports.php` file or add new endpoints (such as `getdata.php`, `getevents.php`, `getmetar.php`, or `vatinfo-panels.php`)
 2. Test thoroughly before deployment
 3. Consider adding rate limiting for production use
-
-## License
-
-[Insert your license information here]
-
-## Contact
-
-[Insert your contact information here]
