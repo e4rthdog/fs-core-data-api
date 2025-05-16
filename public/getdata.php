@@ -32,13 +32,16 @@ if ($vatsim->loadData()) {
             break;
         case 'METAR':
             $metar = strtoupper($_GET['q']);
-            $result = ['metar' => $vatsim->getMetar($metar)];
+            header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            echo $vatsim->getMetar($metar);
+            exit;
             break;
+        default:
+            header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            echo json_encode($result);
     }
-
-    header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin: *');
-    echo json_encode($result);
 } else {
     echo json_encode('666');
 }
